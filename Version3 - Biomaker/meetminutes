@@ -1,0 +1,7 @@
+Meeting 16/3
+Harry, Antonio, Nano
+
+- Antonio have been playing with [Wio platform](https://www.seeedstudio.com/Wio-Terminal-p-4509.html). He made a programme to graph sensor data in real time. Is now using BME sensor but should be portable to CO2 sensors. Will upload code into the repo
+- Nano will keep testing sensors performace in closed chamber and then with real soil. After that we can make a protocol and test against Solvita
+- Harry will catch up as soon as he can
+- Biomaker deadline is 22 March!!!?? If so we should document what we have already on Hackster and then just keep working 

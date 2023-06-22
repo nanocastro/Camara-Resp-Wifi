@@ -1,0 +1,77 @@
+---
+title: "Task name: Short title"
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_float:
+      collapsed: false
+    toc_depth: 4
+    number_sections: false
+    smooth_scroll: false
+    code_folding: hide
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 4
+    number_sections: true
+editor_options:
+  chunk_output_type: inline
+author: NM
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+urlcolor: blue
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, encoding = encoding, output_dir = "output/renders") })
+---
+
+<!-- Templates are located within the inst/rmarkdown/templates directory of a package. -->
+
+```{r setup, message=F}
+knitr::opts_chunk$set(message = F)
+knitr::opts_knit$set(root.dir = here::here())
+library(lubridate)
+library(tidyverse)
+library(zoo)
+```
+
+```{r}
+## Closed chamber test
+
+mhz19<-read_csv("MH-Z19_closed chamber_1.csv")
+mhz16<-read_csv("MH-Z16_closed chamber_1.csv")
+scd41<-read_csv("SDC41_closed chamber_1.csv")
+summary(mhz19)
+summary(mhz16)
+summary(scd41)
+```
+
+
+```{r}
+ggplot() +               
+  geom_line(aes(scd41$TimeStamp,scd41$Medición, color = "black") ) +  
+  geom_line(aes(mhz19$TimeStamp,mhz19$Medición, color = "green")) +
+  geom_line(aes(mhz16$TimeStamp,mhz16$Medición, color = "blue")) +
+  geom_vline(xintercept = as.POSIXct("2022-04-02 17:00")) + 
+  labs(x = "Time", y = "CO2 ppm") +
+  scale_color_manual(labels = c('SCD41', 'MHZ19', 'MHZ16'),
+                     values = c('black', 'green', 'blue')) +
+  ggtitle("Efecto de colocar la tapa (sin suelo)")
+```
+
+```{r}
+datos <- bind_rows(
+  mhz19=mhz19,
+  mhz16=mhz16,
+  scd41=scd41,
+  .id = "sensor"
+)
+
+datos %>% 
+  filter(TimeStamp >= as.POSIXct("2022-04-02 17:00", tz = "UTC")) %>% 
+  ggplot() +               
+  geom_line(aes(x=TimeStamp, y=Medición, color = sensor)) +
+  geom_vline(xintercept = as.POSIXct("2022-04-02 17:00")) + 
+  labs(x = "Time", y = "CO2 ppm") +
+  scale_color_manual(values = c('black', 'green', 'blue')) +
+  ggtitle("Efecto de colocar la tapa (sin suelo)")
+```

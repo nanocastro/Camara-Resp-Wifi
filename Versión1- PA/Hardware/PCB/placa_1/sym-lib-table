@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name Personal)(type Legacy)(uri /home/tropos/camara-respiracion-suelo/hardware/electronics/Personal.lib)(options "")(descr ""))
+  (lib (name placa_1-rescue)(type Legacy)(uri ${KIPRJMOD}/placa_1-rescue.lib)(options "")(descr ""))
+)

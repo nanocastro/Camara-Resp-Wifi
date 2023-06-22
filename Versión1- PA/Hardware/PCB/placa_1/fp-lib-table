@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name Personal)(type KiCad)(uri ${KIPRJMOD}/Personal.pretty)(options "")(descr ""))
+  (lib (name teensy_library-master)(type KiCad)(uri /home/tropos/camara-respiracion-suelo/hardware/electronics/teensy_library-master)(options "")(descr ""))
+)
